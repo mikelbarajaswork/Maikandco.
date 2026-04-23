@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Artículo del blog de Maik&Co. con guías completas y consejos prácticos.">
+    <title>Artículo - Blog Maik&Co.</title>
+
+    <link rel="icon" type="image/png" href="img/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="img/favicon/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .article-hero { padding: 3rem 0 1.5rem; background: #f8fafc; border-bottom: 1px solid #e5e7eb; }
+        .article-meta { display: flex; flex-wrap: wrap; gap: 1rem; color: #64748b; font-size: 0.95rem; margin-bottom: 1rem; }
+        .article-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.2; margin: 0 0 1rem; color: #0f172a; }
+        .article-summary { font-size: 1.1rem; color: #334155; max-width: 900px; }
+        .article-cover { margin: 2rem 0 1rem; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12); }
+        .article-cover img { width: 100%; max-height: 460px; object-fit: cover; display: block; }
+        .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; padding: 2rem 0 4rem; }
+        .article-content { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 2rem; }
+        .article-content h2 { color: #0f172a; margin: 2rem 0 0.8rem; font-size: 1.5rem; }
+        .article-content p { color: #334155; line-height: 1.75; margin: 0 0 1rem; }
+        .article-content ul { margin: 0.8rem 0 1rem 1.2rem; color: #334155; line-height: 1.7; }
+        .article-highlight { background: #eff6ff; border: 1px solid #bfdbfe; padding: 1rem 1.2rem; border-radius: 10px; color: #1e3a8a; margin: 1.2rem 0; }
+        .article-back { margin-top: 2rem; display: inline-flex; align-items: center; gap: 0.5rem; }
+        @media (max-width: 768px) {
+            .article-content { padding: 1.2rem; }
+            .article-hero { padding-top: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav-container">
+                <a href="index.html" class="logo"><img src="img/Logo/Logo.png" alt="Maik & Co. Logo"></a>
+                <ul class="nav-links">
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="faq.html">Preguntas Frecuentes</a></li>
+                    <li><a href="mantenimiento.html" class="btn-primary">Plataforma</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="article-hero">
+            <div class="container">
+                <div class="article-meta" id="articleMeta"></div>
+                <h1 class="article-title" id="articleTitle"></h1>
+                <p class="article-summary" id="articleSummary"></p>
+                <div class="article-cover">
+                    <img id="articleImage" src="img/Profesionales.png" alt="Imagen del artículo">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container article-layout">
+                <article class="article-content" id="articleContent"></article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center mt-4">
+                <p>Maik&Co. — Unimos personas, solucionamos problemas.</p>
+                <p>&copy; 2024 Maik & Co. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const ARTICLES = {
+            "tendencias-reformas-2025": {
+                title: "Nuevas Normas de Alquiler 2025: Lo que Debes Revisar en tu Contrato",
+                category: "Legal",
+                date: "15 Marzo, 2025",
+                readTime: "12 min lectura",
+                image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&h=900&q=90",
+                summary: "Analizamos los cambios legales de alquiler en 2025 para propietarios e inquilinos, con foco en cláusulas críticas y prevención de conflictos.",
+                keys: ["Actualización de rentas", "Duración y prórrogas del contrato", "Cláusulas abusivas frecuentes", "Cómo documentar incidencias y comunicaciones"]
+            },
+            "presupuesto-reforma": {
+                title: "Electricistas: Cómo Comparar Presupuestos sin Errores",
+                category: "Guías",
+                date: "10 Marzo, 2025",
+                readTime: "14 min lectura",
+                image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&h=800&q=90",
+                summary: "Guía práctica para comparar presupuestos de electricistas de forma técnica, clara y sin sorpresas en obra.",
+                keys: ["Boletín e instalaciones incluidas", "Materiales y marcas detalladas", "Mano de obra por partidas", "Garantías y tiempos de ejecución"]
+            },
+            "permisos-obra-espana": {
+                title: "Permisos y Licencias: Guía para Autónomos y Pymes de Servicios",
+                category: "Legal",
+                date: "5 Marzo, 2025",
+                readTime: "11 min lectura",
+                image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&h=800&q=90",
+                summary: "Qué licencias suelen necesitar abogados, electricistas, fontaneros y otros profesionales al trabajar por cuenta propia o como pyme.",
+                keys: ["Licencia de actividad según municipio", "Prevención de riesgos y seguros", "Obligaciones fiscales básicas", "Errores habituales que generan sanciones"]
+            },
+            "eficiencia-energetica-hogar": {
+                title: "Fontanería en Casa: Señales de Avería que No Debes Ignorar",
+                category: "Consejos",
+                date: "1 Marzo, 2025",
+                readTime: "10 min lectura",
+                image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&h=800&q=90",
+                summary: "Síntomas tempranos de averías de fontanería y recomendaciones para actuar a tiempo antes de daños costosos.",
+                keys: ["Pérdidas ocultas y manchas de humedad", "Baja presión en puntos de agua", "Ruidos en tuberías", "Mantenimiento preventivo trimestral"]
+            },
+            "elegir-profesional": {
+                title: "Cómo Elegir un Abogado para tu Caso: Checklist Práctica",
+                category: "Consejos",
+                date: "25 Febrero, 2025",
+                readTime: "9 min lectura",
+                image: "https://images.unsplash.com/photo-1504307651254-35680f056e5e?auto=format&fit=crop&w=1200&h=800&q=90",
+                summary: "Cómo seleccionar abogado por especialidad, entender sus honorarios y preparar una primera consulta efectiva.",
+                keys: ["Especialidad correcta según el caso", "Documentación mínima para la consulta", "Modelos de honorarios", "Señales de buena estrategia legal"]
+            },
+            "materiales-sostenibles": {
+                title: "Carpintería a Medida: Materiales y Acabados que Mejor Funcionan",
+                category: "Materiales",
+                date: "20 Febrero, 2025",
+                readTime: "10 min lectura",
+                image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1200&h=800&q=90",
+                summary: "Comparativa real de materiales y acabados de carpintería para vivienda y negocio según uso y presupuesto.",
+                keys: ["DM, contrachapado y madera maciza", "Lacados y barnices según desgaste", "Herrajes y sistemas de cierre", "Mantenimiento y vida útil"]
+            },
+            "reformas-cocina-2025": { title: "Electricidad Doméstica: Cuándo Renovar tu Instalación", category: "Tendencias", date: "18 Febrero, 2025", readTime: "9 min lectura", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Señales para renovar una instalación eléctrica, mejorar seguridad y adaptarte al consumo actual de la vivienda.", keys: ["Cuadro eléctrico desactualizado", "Sobrecargas y saltos de diferencial", "Protecciones mínimas recomendadas", "Coste aproximado por tipología"] },
+            "reforma-banos": { title: "Fontaneros: Mantenimiento Preventivo para Evitar Urgencias", category: "Guías", date: "15 Febrero, 2025", readTime: "10 min lectura", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Plan de revisión periódico para evitar atascos, fugas y averías en cocina, baño y calentador.", keys: ["Revisión de juntas y latiguillos", "Limpieza de sifones", "Control de presión", "Señales de aviso para llamar al técnico"] },
+            "herramientas-reforma": { title: "Herramientas Clave para Técnicos de Mantenimiento", category: "Consejos", date: "12 Febrero, 2025", readTime: "8 min lectura", image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Kit base recomendado para profesionales multigremio que hacen incidencias rápidas en hogar y local comercial.", keys: ["Equipos de medición", "Consumibles esenciales", "EPI obligatorio", "Organización del maletín por intervención"] },
+            "madera-certificada": { title: "Madera Certificada: La Mejor Opción", category: "Materiales", date: "10 Febrero, 2025", readTime: "8 min lectura", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Por qué la trazabilidad y la certificación importan tanto en precio, calidad y sostenibilidad.", keys: ["Sellos FSC/PEFC", "Mantenimiento por uso", "Coste total de propiedad", "Aplicaciones recomendadas"] },
+            "aislamiento-termico": { title: "Aislamiento Térmico: Guía Completa", category: "Sostenibilidad", date: "8 Febrero, 2025", readTime: "11 min lectura", image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Dónde aislar primero y qué retorno esperar en consumo y confort térmico.", keys: ["Cubierta y fachada", "Puentes térmicos", "Aislamiento interior/exterior", "Relación inversión-ahorro"] },
+            "seguros-obra": { title: "Seguros de Obra: Todo lo que Debes Saber", category: "Legal", date: "5 Febrero, 2025", readTime: "10 min lectura", image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Coberturas recomendadas para reducir riesgos técnicos, civiles y económicos en obra.", keys: ["Responsabilidad civil", "Daños materiales", "Plazos y siniestros", "Coberturas opcionales"] },
+            "minimalismo-hogar-2025": { title: "Minimalismo en el Hogar: Tendencias 2025", category: "Tendencias", date: "3 Febrero, 2025", readTime: "9 min lectura", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Cómo aplicar minimalismo real sin perder calidez, almacenaje ni funcionalidad.", keys: ["Paleta neutra equilibrada", "Muebles multifunción", "Orden visual", "Texturas cálidas"] },
+            "planificar-reforma-integral": { title: "Cómo Planificar tu Reforma Integral: Paso a Paso", category: "Guías", date: "1 Febrero, 2025", readTime: "13 min lectura", image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Cronograma claro, fases y decisiones clave para evitar atrasos y sobrecostes en una reforma integral.", keys: ["Definir alcance", "Secuencia técnica", "Control de proveedores", "Cierre y revisión final"] },
+            "errores-contratar-profesional": { title: "5 Errores Comunes al Contratar un Profesional", category: "Consejos", date: "28 Enero, 2025", readTime: "8 min lectura", image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Errores frecuentes de contratación y cómo evitarlos con un proceso más sólido.", keys: ["No validar referencias", "Aceptar solo precio más bajo", "Alcance ambiguo", "Sin hitos de pago"] },
+            "ceramica-azulejos": { title: "Guía de Cerámica y Azulejos: Tipos y Aplicaciones", category: "Materiales", date: "25 Enero, 2025", readTime: "9 min lectura", image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Comparativa práctica de formatos, acabados y usos para elegir el revestimiento ideal.", keys: ["Porcelánico vs pasta roja", "Antideslizante", "Formato y juntas", "Mantenimiento"] },
+            "ventanas-alto-rendimiento": { title: "Ventanas de Alto Rendimiento: Ahorro y Confort", category: "Sostenibilidad", date: "22 Enero, 2025", readTime: "9 min lectura", image: "https://images.unsplash.com/photo-1508615070457-7baeba4003ab?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Cómo elegir carpintería y vidrio para reducir pérdidas energéticas y mejorar confort acústico.", keys: ["Transmitancia térmica", "Doble/triple vidrio", "Sellado y montaje", "Ahorro anual estimado"] },
+            "domotica-hogar": { title: "Domótica en el Hogar: Transforma tu Casa en Smart Home", category: "Tendencias", date: "20 Enero, 2025", readTime: "10 min lectura", image: "https://images.unsplash.com/photo-1600607688969-a5fcd52667ef?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Aplicaciones de domótica que realmente mejoran seguridad, eficiencia y comodidad diaria.", keys: ["Control de climatización", "Iluminación inteligente", "Seguridad conectada", "Escenarios automatizados"] },
+            "contrato-obra": { title: "Contrato de Obra: Qué Debe Incluir y Cómo Protegerte", category: "Legal", date: "18 Enero, 2025", readTime: "10 min lectura", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Estructura mínima de un contrato de obra para reducir conflictos y proteger plazos y calidad.", keys: ["Objeto y alcance", "Plazos e hitos", "Penalizaciones", "Garantías post-entrega"] },
+            "mantenimiento-post-reforma": { title: "Mantenimiento Post-Reforma: Consejos para Conservar tu Hogar", category: "Guías", date: "15 Enero, 2025", readTime: "9 min lectura", image: "https://images.unsplash.com/photo-1600607688969-a5fcd52667ef?auto=format&fit=crop&w=1200&h=800&q=90", summary: "Plan de mantenimiento trimestral para prolongar la vida útil de acabados e instalaciones.", keys: ["Checklist por estancias", "Frecuencia recomendada", "Detección temprana de fallos", "Cuándo llamar a un profesional"] }
+        };
+
+        function getPostSlug() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("post");
+        }
+
+        function renderArticle(post) {
+            const meta = document.getElementById("articleMeta");
+            const title = document.getElementById("articleTitle");
+            const summary = document.getElementById("articleSummary");
+            const image = document.getElementById("articleImage");
+            const content = document.getElementById("articleContent");
+
+            meta.innerHTML = `
+                <span><i class="far fa-folder"></i> ${post.category}</span>
+                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                <span><i class="far fa-clock"></i> ${post.readTime}</span>
+            `;
+            title.textContent = post.title;
+            summary.textContent = post.summary;
+            image.src = post.image;
+            image.alt = post.title;
+            image.onerror = function() { this.onerror = null; this.src = "img/Profesionales.png"; };
+
+            const keyItems = post.keys.map(item => `<li>${item}</li>`).join("");
+            content.innerHTML = `
+                <p>Este artículo desarrolla de forma práctica la temática <strong>${post.category.toLowerCase()}</strong> para ayudarte a tomar decisiones con más criterio y menos improvisación. El objetivo es que puedas pasar de la idea a la ejecución con un plan claro.</p>
+                <div class="article-highlight"><strong>En resumen:</strong> ${post.summary}</div>
+                <h2>Puntos clave</h2>
+                <ul>${keyItems}</ul>
+                <h2>Cómo aplicarlo en tu caso</h2>
+                <p>Empieza definiendo tu objetivo principal: ahorro, estética, confort o rapidez de ejecución. Después, prioriza acciones de mayor impacto y separa claramente lo imprescindible de lo deseable para mantener el control del presupuesto.</p>
+                <p>Cuando compares soluciones, evita quedarte solo con el precio inicial. Revisa también durabilidad, mantenimiento, plazos de instalación y posibles costes ocultos. Esta visión completa evita decisiones que luego salen caras.</p>
+                <h2>Errores frecuentes que conviene evitar</h2>
+                <p>Los fallos más comunes suelen ser tres: no concretar el alcance, no definir hitos de validación y no reservar margen para imprevistos. Corregir esto desde el inicio mejora calidad, tiempos y tranquilidad durante todo el proceso.</p>
+                <p>También es clave documentar decisiones por escrito y validar cambios antes de ejecutarlos. Esto reduce malentendidos y hace que cliente y profesional trabajen con expectativas alineadas.</p>
+                <h2>Checklist rápida antes de empezar</h2>
+                <ul>
+                    <li>Objetivo del proyecto definido en una frase.</li>
+                    <li>Presupuesto máximo y margen de contingencia establecidos.</li>
+                    <li>Cronograma con fases y responsables.</li>
+                    <li>Criterios de calidad acordados antes de contratar.</li>
+                </ul>
+                <a href="blog.html" class="btn btn-primary article-back"><i class="fas fa-arrow-left"></i> Volver al blog</a>
+            `;
+        }
+
+        function initArticlePage() {
+            const slug = getPostSlug();
+            const post = ARTICLES[slug] || ARTICLES["tendencias-reformas-2025"];
+            renderArticle(post);
+        }
+
+        document.addEventListener("DOMContentLoaded", initArticlePage);
+    </script>
+</body>
+</html>
